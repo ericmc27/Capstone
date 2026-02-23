@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon --watch main.ts --exec npx tsx main"
+    "server": "nodemon --exec npx tsx main"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
+    "mongodb": "^7.1.0",
     "pg": "^8.18.0"
   },
   "devDependencies": {

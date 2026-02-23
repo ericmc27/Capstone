@@ -1,28 +1,37 @@
-import express from 'express'
-import cors from 'cors'
-import { toNodeHandler } from 'better-auth/node'
-import { auth } from './lib/auth'
+import express from "express";
+import cors from "cors";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./lib/auth";
+import { apiRouter } from "./routes/apiRouter";
+import { Collection } from "mongodb"
+import { createMongoClient } from "./mongoDb";
+import { checkUserAuthenication } from "./controllers/apiController";
 
-const app = express()
-const PORT = process.env.PORT || 1234
+const PORT = process.env.PORT || 1234;
+export let productsCollection: Collection;
 
-app.use(cors({
-  origin: process.env.ALLOWED_ORIGIN,
-  credentials: true
-}))
+async function main() {
+  const app = express();
 
-app.all('/api/auth/{*any}', toNodeHandler(auth));
+  app.use(
+    cors({
+      origin: process.env.ALLOWED_ORIGIN,
+      credentials: true,
+    }),
+  );
 
-app.get('/api/profile', async (req, res)=>{
-  const session = await auth.api.getSession({headers: req.headers})
+  app.all("/api/auth/{*any}", toNodeHandler(auth));
+  app.use("/api", apiRouter);
   
-  if(!session){
-    res.status(401).json({error: 'Unauthorized'})
-  }else{
-    res.status(200).json({data: session})
-  }
-})
+  productsCollection = await createMongoClient();
 
-app.listen(PORT, ()=>{
-  console.log(`Server listening at http://localhost:${PORT}`)
-})
+  app.get("/", (req, res) => {
+    res.send("<h1>Hello - Express</h1>");
+  });
+
+  app.listen(PORT, () => {
+    console.log(`Server listening at http://localhost:${PORT}`);
+  });
+}
+
+main()
