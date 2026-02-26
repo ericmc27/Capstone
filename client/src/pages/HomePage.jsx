@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { signIn } from '../../lib/auth-client'
 import { handleOnChange } from '../hooks/handleInputChange'
-import cart from '/cart_icon.png'
+import Img from '../components/ClouldImage'
 
 function HomePage(){
   const navigate = useNavigate()
@@ -19,18 +19,20 @@ function HomePage(){
   }
 
   return(
-    <div className='h-screen grid grid-rows-[0.6fr_5fr]'>
-      <div className='flex items-center justify-center bg-[#353a35] text-[#E0E0E0]'>
+    <div className='h-screen grid grid-rows-[0.6fr_5fr] bg-[#F3F4F6]'>
+      <div className='flex items-center justify-center bg-[#6482a6] text-[#E0E0E0]'>
         <form className='flex items-center gap-3' onSubmit={handleOnSubmit}>
-          <img className='w-15' src={'https://res.cloudinary.com/dzxcqm6ii/image/upload/v1771370469/cart_icon_rl2jq9.png'}/>
+          <Img className={'w-10 h-10'} publicId={'shopping-cart_avme0r'}/>
           <label>EMAIL</label>
-          <input id='email' type='email' className='border h-8 rounded bg-white' value={loginData.email} onChange={(e)=>(handleOnChange(e, setLoginData))}/>
+          <input id='email' type='email' className='border h-8 rounded bg-white text-black' value={loginData.email} onChange={(e)=>(handleOnChange(e, setLoginData))}/>
           <label>PASSWORD</label>
-          <input id='password' type='password' className='border h-8 rounded bg-white' value={loginData.password} onChange={(e)=>(handleOnChange(e, setLoginData))}/>
-          <input type='submit' className='border h-10' value={'login'}/>
+          <input id='password' type='password' className='border h-8 rounded bg-white text-black' value={loginData.password} onChange={(e)=>(handleOnChange(e, setLoginData))}/>
+          <input type='submit' className='border rounded p-1.5 bg-amber-100 text-black' value={'login'}/>
         </form>
       </div>
-      <div>
+
+      <div className='font-[Playwrite_AT] text-4xl'>
+        Click. Shop. Enjoy. 
       </div>
     </div>
   )

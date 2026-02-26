@@ -9,6 +9,8 @@ export async function createMongoClient(){
     }
   });
 
+  await client.connect()
+  
   const db = client.db('productDb')
   const productsCollection = db.collection('products')
 

@@ -12,6 +12,6 @@ export const auth = betterAuth({
     },
 
     trustedOrigins: [
-      `${process.env.ALLOWED_ORIGIN}`
-    ]
+      `${process.env.ALLOWED_ORIGIN}`,
+    ],
 });

@@ -1,13 +1,14 @@
-import { createBrowserRouter, redirect} from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 import HomePage from './src/pages/HomePage'
-import UserProfile from './src/pages/UserProfile'
 import SignupPage from './src/pages/SignupPage'
+import UserProfile from './src/pages/UserProfile'
+import { checkAuthentication } from './src/utils/main'
 
 const router = createBrowserRouter(
   [
     {
       path: '/',
-      element: <HomePage/>
+      element: <HomePage/>,
     },
     {
       path: '/signup',
@@ -16,17 +17,11 @@ const router = createBrowserRouter(
     {
       path: '/profile',
       element: <UserProfile/>,
-      loader: async (req, res) => {
-        const session = await (await fetch(`${import.meta.env.VITE_SERVER_BASE_URL}/api/check-user-session`, {credentials: 'include'})).json()
-        
-        if(session?.error && session.error === 'Unauthorized'){
-          return redirect('/')
-        }
-
-        const getProducts = await (await fetch(`${import.meta.env.VITE_SERVER_BASE_URL}/api/get-products`, {credentials: 'include'})).json()
-        console.log(getProducts)
-
-        return session
+      loader: async () => {
+        const session = await checkAuthentication()
+        const { products } = await (await fetch(`${import.meta.env.VITE_SERVER_BASE_URL}/api/get-products`, {credentials: 'include'})).json()
+        console.log(products)
+        return {session}
       }
     },
     {

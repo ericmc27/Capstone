@@ -25,6 +25,6 @@ export const checkUserAuthenication = async (req: Request, res: Response, next: 
 }
 
 export const getProducts = async (req: Request, res: Response)=>{
-  const products = await productsCollection.aggregate([{ $sample: {size: 5}}]).toArray()
+  const products = await productsCollection.aggregate([{ $sample: {size: 6}}]).toArray()
   res.status(200).send({products})
 }
