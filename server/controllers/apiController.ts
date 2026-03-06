@@ -24,7 +24,8 @@ export const checkUserAuthenication = async (req: Request, res: Response, next: 
   }
 }
 
-export const getProducts = async (req: Request, res: Response)=>{
-  const products = await productsCollection.aggregate([{ $sample: {size: 6}}]).toArray()
+export const getProductsByCategory = async (req: Request, res: Response)=>{
+  const { category } = req.params
+  const products = await productsCollection.aggregate([{$match: {'sub_category': category}}, {$sample: {size: 6}}]).toArray()
   res.status(200).send({products})
 }
