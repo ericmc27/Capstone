@@ -8,20 +8,19 @@ const router = createBrowserRouter(
   [
     {
       path: '/',
-      element: <HomePage/>,
+      element: <HomePage />,
     },
     {
       path: '/signup',
-      element: <SignupPage/>
+      element: <SignupPage />
     },
     {
       path: '/profile',
-      element: <UserProfile/>,
+      element: <UserProfile />,
       loader: async () => {
         const session = await checkAuthentication()
-        const { products } = await (await fetch(`${import.meta.env.VITE_SERVER_BASE_URL}/api/get-products`, {credentials: 'include'})).json()
-        console.log(products)
-        return {session}
+
+        return { session }
       }
     },
     {
