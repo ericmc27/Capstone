@@ -1,14 +1,20 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useMainStore } from "../../store/main"
-import { Item } from "../components/Item"
 import { signOut } from "../../lib/auth-client";
+import Item from "../components/Item";
 import Img from "../components/ClouldImage";
 
-function UserProfile() {
+function UserProfilePage() {
   const data = useLoaderData();
   const navigate = useNavigate();
-  const currentProducts = useMainStore((state)=>state.currentProducts)
-  console.log(currentProducts)
+  const currentProducts = useMainStore((state) => state.currentProducts)
+  const cartItemsLength = useMainStore((state) => state.cartItems.length)
+  const cartItems = useMainStore((state) => state.cartItems)
+  const updateCartItems = useMainStore((state) => state.updateCartItems)
+
+  const handleOnClick = ()=>{
+    navigate('/checkout')
+  }
 
   const handleSignOut = () => {
     signOut({
@@ -32,23 +38,26 @@ function UserProfile() {
               <Item category={'Winter Wear'} />
               <Item category={'Raincoats'} />
               <Item category={'Topwear'} />
-              <Item category={'Innerwear and Swimwear'} />
-              <Item category={'Kurtas, Ethnic Sets and Bottoms'} />
               <Item category={'Blazers, Waistcoats and Suits'} />
             </ul>
 
-            <button
-              className="h-10 w-20 hover:cursor-pointer"
-              onClick={handleSignOut}
-            >
-              Log out
+            {/* <button
+className="h-10 w-20 hover:cursor-pointer"
+onClick={handleSignOut}
+>
+Log out
+</button> */}
+
+            <button onClick={handleOnClick}>
+              <Img publicId={'shopping-cart_cw3hel'} className={'h-7 w-7'} />
+              {cartItemsLength}
             </button>
           </div>
 
           <div className="flex flex-col justify-center items-center relative flex-1">
             {/* min-h-0 overflow-y-auto */}
             {/* <h1>Closer than you ever imagined</h1>
-            <Img publicId={'tennis_court'} className={'absolute inset-0 w-full h-full object-cover'}/> */}
+<Img publicId={'tennis_court'} className={'absolute inset-0 w-full h-full object-cover'}/> */}
 
             {!currentProducts ?
               <div className="flex gap-25">
@@ -76,11 +85,11 @@ function UserProfile() {
 
               <div className="flex gap-5 w-full">
                 {
-                  currentProducts.map((product, index)=>{
+                  currentProducts.map((product, index) => {
                     return <div className=" h-120 w-200 mt-2" key={index}>
-                      {product['sub_category']}
-                      <img src={`${product.images[0]}`} className="h-120 w-200 rounded shadow-2xl"/>
-                      </div>
+                      <button onClick={()=>(updateCartItems(product))} className="border">Add to cart</button>
+                      <img src={`${product.images[0]}`} className="h-120 w-200 rounded shadow-2xl" />
+                    </div>
                   })
                 }
               </div>
@@ -94,4 +103,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default UserProfilePage;

@@ -27,7 +27,7 @@ function HomePage() {
     <div className='h-screen grid grid-rows-[0.6fr_5fr] bg-[#F3F4F6]'>
       <div className='flex items-center justify-center bg-[#264653] text-[#E0E0E0]'>
         <form className='flex items-center gap-3' onSubmit={handleOnSubmit}>
-          <Img className={'w-10 h-10'} publicId={'shopping-cart_avme0r'} />
+          {/* <Img className={'w-10 h-10'} publicId={'shopping-cart_avme0r'} /> */}
           <label>EMAIL</label>
           <input id='email' type='email' className='border h-8 rounded bg-white text-black' value={loginData.email} onChange={(e) => (handleOnChange(e, setLoginData))} />
           <label>PASSWORD</label>

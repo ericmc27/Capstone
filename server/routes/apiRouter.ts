@@ -1,8 +1,10 @@
 import express from 'express'
-import {checkUserAuthenication, checkUserSession, getProductsByCategory } from '../controllers/apiController'
+import {checkUserAuthenication, checkUserSession, createCheckoutSession, getProductsByCategory, storePayment } from '../controllers/apiController'
 
 export const apiRouter = express.Router()
 
+apiRouter.post('/create-checkout-session', createCheckoutSession)
 apiRouter.use(checkUserAuthenication)
 apiRouter.get('/check-user-session', checkUserSession)
 apiRouter.get('/products/category/:category', getProductsByCategory)
+apiRouter.post('/storePayment/:session_id', storePayment)

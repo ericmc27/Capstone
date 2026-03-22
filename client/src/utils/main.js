@@ -21,3 +21,14 @@ export async function getProductsByCategory(category) {
   const data = await response.json();
   return data.products;
 }
+
+export async function createCheckoutSession() {
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_BASE_URL}/api/create-checkout-session`,
+    { method: "POST", credentials: "include" },
+  );
+
+  const data = await response.json()
+  
+  return data.sessionId
+}
