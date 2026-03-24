@@ -9,7 +9,7 @@ function ConfirmationPage(){
   const clearCartItems = useMainStore((state) => state.clearCartItems)
   const navigate = useNavigate()
 
-  console.log(params)
+
 
   useEffect(()=>{
     clearCartItems()

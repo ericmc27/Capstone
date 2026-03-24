@@ -3,8 +3,8 @@ import {checkUserAuthenication, checkUserSession, createCheckoutSession, getProd
 
 export const apiRouter = express.Router()
 
-apiRouter.post('/create-checkout-session', createCheckoutSession)
 apiRouter.use(checkUserAuthenication)
 apiRouter.get('/check-user-session', checkUserSession)
+apiRouter.post('/create-checkout-session', createCheckoutSession)
 apiRouter.get('/products/category/:category', getProductsByCategory)
-apiRouter.post('/storePayment/:session_id', storePayment)
+// apiRouter.post('/storePayment/:session_id', storePayment)

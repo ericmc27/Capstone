@@ -50,7 +50,7 @@ function CheckoutForm(){
       </div>
 
       <div className='fixed left-230 top-30'>
-        <label className='font-bold text-center'>{totalCartItems.toFixed(2) === '0.00' ? "No item in your cart" : totalCartItems.toFixed(2)}</label>
+        <label className='font-bold text-center'>{totalCartItems.toFixed(2)}</label>
         <PaymentElement options={options} className='w-100' />
         <button className='border p-6 mt-2 bg-green-200' onClick={handlePay}>Pay</button>
       </div>
