@@ -1,3 +1,3 @@
 import { Cloudinary } from "@cloudinary/url-gen";
 
-export const cld = new Cloudinary({ cloud: { cloudName: "dzxcqm6ii" } });
+export const cld = new Cloudinary({ cloud: { cloudName: "eric-castillo" } });

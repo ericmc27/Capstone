@@ -12,7 +12,7 @@ function UserProfilePage() {
   const cartItems = useMainStore((state) => state.cartItems)
   const updateCartItems = useMainStore((state) => state.updateCartItems)
 
-  const handleOnClick = ()=>{
+  const handleOnClick = () => {
     navigate('/checkout')
   }
 
@@ -27,7 +27,6 @@ function UserProfilePage() {
   };
 
   return (
-    // bg-[#f8f9fa]
     <div className="h-screen flex flex-col  bg-[#edebe6]">
       {data.session ? (
         <>
@@ -41,43 +40,39 @@ function UserProfilePage() {
               <Item category={'Blazers, Waistcoats and Suits'} />
             </ul>
 
-            {/* <button
+            <button
 className="h-10 w-20 hover:cursor-pointer"
 onClick={handleSignOut}
 >
 Log out
-</button> */}
+</button>
 
             <button onClick={handleOnClick}>
-              <Img publicId={'shopping-cart_cw3hel'} className={'h-7 w-7'} />
+              <Img imagePublicId={'download_kv9uso'} className={'h-7 w-7'} />
               {cartItemsLength}
             </button>
           </div>
 
           <div className="flex flex-col justify-center items-center relative flex-1">
-            {/* min-h-0 overflow-y-auto */}
-            {/* <h1>Closer than you ever imagined</h1>
-<Img publicId={'tennis_court'} className={'absolute inset-0 w-full h-full object-cover'}/> */}
-
             {!currentProducts ?
               <div className="flex gap-25">
                 <div className="h-120 w-50 border rounded shadow-2xl">
                   <Img
-                    publicId={"green_tshirt_jkgjq6"}
+                    imagePublicId={"download_xanars"}
                     className={"object-cover h-full w-full"}
                   />
                 </div>
 
                 <div className="h-120 w-50 border rounded shadow-2xl">
                   <Img
-                    publicId={"brown_tshirt_be6zcb"}
+                    imagePublicId={"images_ur7cbe"}
                     className={"object-cover h-full w-full"}
                   />
                 </div>
 
                 <div className="h-120 w-50 border rounded shadow-2xl">
                   <Img
-                    publicId={"black_tshirt_oj47ak"}
+                    imagePublicId={"download_gs83vz"}
                     className={"object-cover h-full w-full"}
                   />
                 </div>
@@ -87,7 +82,7 @@ Log out
                 {
                   currentProducts.map((product, index) => {
                     return <div className=" h-120 w-200 mt-2" key={index}>
-                      <button onClick={()=>(updateCartItems(product))} className="border">Add to cart</button>
+                      <button onClick={() => (updateCartItems(product))} className="border">Add to cart</button>
                       <img src={`${product.images[0]}`} className="h-120 w-200 rounded shadow-2xl" />
                     </div>
                   })

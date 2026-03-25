@@ -1,10 +1,11 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, redirect } from 'react-router-dom'
 import HomePage from './src/pages/HomePage'
 import SignupPage from './src/pages/SignupPage'
 import UserProfilePage from './src/pages/UserProfilePage'
 import CheckoutPage from './src/pages/CheckoutPage'
 import ConfirmationPage from './src/pages/ConfirmationPage'
-import { checkAuthentication } from './src/utils/main'
+import AdminPage from './src/pages/AdminPage'
+import { checkAuthentication, getProducts } from './src/utils/main'
 
 
 const router = createBrowserRouter(
@@ -36,6 +37,19 @@ const router = createBrowserRouter(
     { 
       path: '/confirmation',
       element: <ConfirmationPage/>
+    },
+    {
+      path: '/admin',
+      element: <AdminPage/>,
+      loader: async () => {
+        try {
+          return await getProducts()
+        } catch (err) {
+          if(err instanceof Response && err.status === 403){
+            throw redirect('/')
+          }
+        }
+      }
     },
     {
       path: '*',

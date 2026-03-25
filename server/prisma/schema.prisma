@@ -14,9 +14,10 @@ datasource db {
 }
 
 model User {
-  id            String       @id @default(cuid())
+  id            String    @id @default(cuid())
   email         String    @unique
   name          String?
+  role          String    @default("client")
   emailVerified Boolean   @default(false)
   image         String?
   createdAt     DateTime  @default(now())
@@ -77,6 +78,8 @@ model Verification {
 
 model Orders {
   id            Int @id @default(autoincrement())
+  title         String
+  image         String
   customerEmail String
   amountTotal   Int
   paymentStatus String

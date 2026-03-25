@@ -14,4 +14,13 @@ export const auth = betterAuth({
     trustedOrigins: [
       `${process.env.ALLOWED_ORIGIN}`,
     ],
+
+    user: {
+      additionalFields: {
+        role: {
+          type: 'string',
+          input: false
+        }
+      }
+    }
 });

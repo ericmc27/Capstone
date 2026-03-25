@@ -1,5 +1,18 @@
 import { redirect } from "react-router-dom";
 
+export async function getProducts(){
+   const response = await fetch(
+    `${import.meta.env.VITE_SERVER_BASE_URL}/api/get-products`,
+    { credentials: "include" },
+  );
+
+  if (!response.ok){
+    throw new Response(null, {status: response.status})
+  }
+
+  return await response.json()
+}
+
 export async function checkAuthentication() {
   const session = await fetch(
     `${import.meta.env.VITE_SERVER_BASE_URL}/api/check-user-session`,

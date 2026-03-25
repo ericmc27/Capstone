@@ -10,7 +10,7 @@ export const checkUserSession = async (req: Request, res: Response) => {
   if (!session) {
     res.status(401).json({ error: "Unauthorized" });
   } else {
-    const userData = { name: session.user.name, email: session.user.email };
+    const userData = { name: session.user.name, email: session.user.email};
     res.status(200).json({ userData });
   }
 };
@@ -92,7 +92,10 @@ export const storePayment = async (req: Request, res: Response) => {
     switch (event.type){
       case 'checkout.session.completed':
         const session = event.data.object as Stripe.Checkout.Session
-        await prisma.orders.create({data: {customerEmail: session.customer_details?.email ?? '', amountTotal: session.amount_total ?? 0, createdAt: new Date(session.created * 1000), paymentStatus: session.payment_status}})
+        const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {expand: ['data.price.product']})
+        lineItems.data.map(async(lineItem)=>{
+          await prisma.orders.create({data: {title: lineItem.price?.product?.name, image:lineItem.price?.product.images[0], customerEmail: session.customer_details?.email ?? '', amountTotal: lineItem.amount_total ?? 0, createdAt: new Date(session.created * 1000), paymentStatus: session.payment_status}})
+        })
         break
       
       default:
